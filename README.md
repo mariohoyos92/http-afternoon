@@ -144,7 +144,7 @@ Import axios near the top of the file:
 `import axios from 'axios';`
 
 
-Now, you will make a `componentWillMount` method and use axios to make a GET request to the endpoint: `'/api/featured'`
+Now, you will make a `componentDidMount` method and use axios to make a GET request to the endpoint: `'/api/featured'`
 
 Using the `.then` function on the axios call, set the `featured` property in state to the appropriate data in the results.
 
@@ -164,7 +164,7 @@ Lastly, add a `.catch(console.log)` to the end of `.then` for error reporting.
 
 ```javascript
 ...
-componentWillMount(){
+componentDidMount(){
     axios.get('/api/featured').then(results=>{
         this.setState({
             featured: results.data,
@@ -195,7 +195,7 @@ The endpoint will be at `/api/blog/:id`. The `:id` is a parameter. Meaning that 
 
 This parameter is being used in the React routing also. You can access the parameter in react thusly: `this.props.match.params.id` in this case.
 
-In a `componentWillMount` method, make an `axios.get` call to `/api/blog/id` with the id property from `this.props.match.params` filling the `id` spot in the URL. `console.log` the response in the `.then` and find what data needs to be set to `state`. 
+In a `componentDidMount` method, make an `axios.get` call to `/api/blog/id` with the id property from `this.props.match.params` filling the `id` spot in the URL. `console.log` the response in the `.then` and find what data needs to be set to `state`. 
 
 Lastly, add a `.catch(console.log)` to the end of `.then` for error reporting.
 
@@ -347,9 +347,9 @@ Next we are going to add axios to the Edit.js component.
 Import axios near the top of the file:
 `import axios from 'axios';`
 
-This time there are going to be three `axios` requests made from `componentWillMount`, `updatePost`, and `deletePost` methods.
+This time there are going to be three `axios` requests made from `componentDidMount`, `updatePost`, and `deletePost` methods.
 
-The `componentWillMount` method will be using a GET request.
+The `componentDidMount` method will be using a GET request.
 
 The `updatePost` method will be using a PUT request.
 
@@ -357,7 +357,7 @@ The `deletePost` method will be using a DELETE request.
 
 The endpoint for all requests will be at `/api/blog/:id`. You should notice that we are using a URL parameter again. This will be available via: `this.props.match.params.id`. The URL will need to be dynamic, so use backticks and variable injection again.
 
-Let's start with `componentWillMount`. This is where we'll make a GET request for the selected blog post. In the `.then` of the get request, we'll parse out our `response.data` into multiple properties on `this.state`. Try and decide what properties those might be by using `console.log` on `response.data`. As always, add `.catch(console.log)` after `.then`
+Let's start with `componentDidMount`. This is where we'll make a GET request for the selected blog post. In the `.then` of the get request, we'll parse out our `response.data` into multiple properties on `this.state`. Try and decide what properties those might be by using `console.log` on `response.data`. As always, add `.catch(console.log)` after `.then`
 
 Now we'll create the `updatePost` method for the PUT request. This is where our edit function comes from. A PUT request tells the server that you're changing some information that already exists, rather than adding new information. `axios.put` is set up the same way as `axios.post` -- two arguments: endpoint and body object. Follow the same pattern from `Add.js`. Don't forget `.catch(console.log)`
 
@@ -386,7 +386,7 @@ this.props.history.push('/search')
 
 ```javascript
 ...
-    componentWillMount(){
+    componentDidMount(){
         axios.get(`/api/blog/${this.props.match.params.id}`).then(results=>{
             let blog = results.data
             this.setState({
@@ -424,7 +424,7 @@ this.props.history.push('/search')
 
 We're now going to mainly repeat the concepts we just used but for users. We'll need a way to add a user (using a POST request), update a user (using a PUT request), and delete a user (using a DELETE request). All of these methods will be built on `NewUser.js` and will be aptly named `addUser`, `updateUser`, and `deleteUser`. 
 
-Additionally we will need to make a GET request in the `componentWillMount` on `User.js` in order to populate the UI with the correct information.
+Additionally we will need to make a GET request in the `componentDidMount` on `User.js` in order to populate the UI with the correct information.
 
 #### Bonus
 
@@ -482,7 +482,7 @@ this.props.history.push(`/search/`)
 
 ```javascript
 ...
-    componentWillMount(){
+    componentDidMount(){
         let userID = this.props.match.params.id;
         axios.get(`/api/user/${userID}`).then(response=>{
             let user = response.data
